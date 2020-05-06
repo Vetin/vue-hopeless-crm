@@ -41,9 +41,7 @@ export default {
 	data: () => ({
 		showSidebar: true,
 	}),
-	mounted ()	{
-		console.log(this.$route);
-	}
+
 }
 </script>
 

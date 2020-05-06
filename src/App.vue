@@ -24,4 +24,10 @@ export default {
 <style>
 @import "~materialize-css/dist/css/materialize.min.css";
 @import "assets/index.css";
+
+#toast-container {
+	left: 43% !important;
+	bottom: 0 !important;
+	top: 5% !important;
+}
 </style>

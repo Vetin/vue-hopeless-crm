@@ -38,6 +38,8 @@ export default {
 
 	mounted ()	{
 		M.updateTextFields();
+		this.$error('test');
+
 	},
 };
 </script>
