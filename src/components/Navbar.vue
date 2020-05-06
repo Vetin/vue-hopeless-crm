@@ -69,7 +69,7 @@ export default {
 		interval: null,
 		dropdown: null,
 	}),
-	created ()	{
+	mounted ()	{
 		this.interval = setInterval(() => { this.date = new Date().toLocaleString(); }, 1000);
 		this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
 			constrainWidth: false
