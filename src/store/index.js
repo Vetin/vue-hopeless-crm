@@ -14,7 +14,15 @@ export default new Vuex.Store({
       state.error = error;
     },
   },
-  actions: {},
+  actions: {
+    async fetchCurrency() {
+      const key = process.env.VUE_APP_FIXER;
+      const response = await fetch(
+        `http://data.fixer.io/api/latest?access_key=${key}&symbols=EUR,RUB,USD`
+      );
+      return await response.json();
+    },
+  },
   getters: {
     error: (state) => state.error,
   },

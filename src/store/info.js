@@ -22,7 +22,6 @@ export default {
           .ref(`/users/${userId}/info`)
           .once('value')
       ).val();
-      console.log(info);
       commit('setInfo', info);
     },
   },

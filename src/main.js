@@ -10,10 +10,13 @@ import Message from '@/middleware/utils';
 import router from '@/router';
 import store from '@/store';
 import 'materialize-css';
+import currencyFilter from '@/filters/currency.filter';
 
 Vue.config.productionTip = false;
+
 Vue.use(Vuelidate);
 Vue.use(Message);
+Vue.filter('currency', currencyFilter);
 Vue.component('Loader', Loader);
 
 firebase.initializeApp({

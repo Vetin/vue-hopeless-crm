@@ -3,7 +3,10 @@
 		<div class="page-title">
 			<h3>Счет</h3>
 
-			<button class="btn waves-effect waves-light btn-small">
+			<button
+				class="btn waves-effect waves-light btn-small"
+				@click="refresh"
+			>
 				<i class="material-icons">refresh</i>
 			</button>
 		</div>
@@ -14,8 +17,11 @@
 			class="row"
 			v-else
 		>
-			<Bill />
-			<Currency />
+			<Bill :rates="currency.rates" />
+			<Currency
+				:rates="currency.rates"
+				:date="currency.date"
+			/>
 		</div>
 	</div>
 </template>
@@ -32,7 +38,19 @@ export default {
 	data: () => ({
 		isLoading: true,
 		currency: null,
-	})
-
+	}),
+	methods: {
+		async refresh ()		{
+			await this.getCurrency();
+		},
+		async getCurrency ()		{
+			this.isLoading = true;
+			this.currency = await this.$store.dispatch('fetchCurrency');
+			this.isLoading = false;
+		}
+	},
+	async mounted ()	{
+		await this.getCurrency();
+	},
 }
 </script>
