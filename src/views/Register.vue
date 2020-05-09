@@ -28,9 +28,20 @@ export default {
 		},
 	}),
 	methods: {
-		sendFormHandler ()		{
+		async sendFormHandler ()		{
 			this.isSubmited = true;
-			console.log('register');
+			const data = {
+				email: this.form.email,
+				password: this.form.password,
+				name: this.form.name
+			};
+			try {
+				await this.$store.dispatch('register', data);
+				this.$router.push("/");
+			} catch (error) {
+				this.$store.commit('setError', error.message);
+			}
+			this.isSubmited = false;
 		}
 	}
 }

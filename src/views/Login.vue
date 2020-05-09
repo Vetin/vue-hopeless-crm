@@ -4,6 +4,7 @@
 			:email="form.email"
 			:password="form.password"
 			@sendFormHandler="sendFormHandler"
+			ndFormHandler="sendFormHandler"
 			@change="({ value, variable }) => {this.form[variable] = value}"
 			:isSubmited="isSubmited"
 			type="login"
@@ -13,6 +14,7 @@
 
 <script>
 import AuthForm from '@/components/AuthForm';
+import msgTypes from '@/utils/messages.types';
 
 export default {
 	components: {
@@ -26,21 +28,30 @@ export default {
 		isSubmited: false,
 	}),
 	methods: {
-		sendFormHandler ()		{
+		async sendFormHandler ()		{
 			this.isSubmited = true;
-			console.log('make request and other logic here');
-			// this.$router.push('/');
+			const data = {
+				email: this.form.email,
+				password: this.form.password,
+			};
+			try {
+				await this.$store.dispatch('login', data);
+				this.$router.push('/');
+			} catch (error) {
+				this.$store.commit('setError', error.message);
+			}
+			this.isSubmited = false;
 		},
 		change ()		{
 			this.form[variable] = value;
 		}
 	},
-
 	mounted ()	{
-		M.updateTextFields();
-		this.$error('test');
-
-	},
+		if (this.$route.query.message === 'logout') {
+			this.$message(msgTypes['logout']);
+			this.$route.query.message = {};
+		}
+	}
 };
 </script>
 

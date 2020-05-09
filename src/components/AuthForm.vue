@@ -159,8 +159,27 @@ export default {
 	},
 	methods: {
 		validateForm ()		{
-			this.$v.email.$touch();
-			if (this.$v.$invalid) {
+			this.$v.$touch();
+			let isInvalid = false;
+			switch (this.type) {
+				case 'login': {
+					if (this.$v.email.$invalid || this.$v.password.$invalid) {
+						isInvalid = true;
+					}
+					break;
+				}
+				case 'register': {
+					if (this.$v.$invalid) {
+						isInvalid = true;
+					}
+					break;
+				}
+				default: {
+					isInvalid = true;
+					break;
+				}
+			}
+			if (isInvalid) {
 				this.isClick = true;
 				return;
 			}
