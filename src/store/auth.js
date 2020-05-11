@@ -1,16 +1,14 @@
 import firebase from 'firebase/app';
 
 export default {
-  state: {
-    token: null,
-  },
+  state: {},
   mutations: {
     setToken(state, token) {
       state.token = token;
     },
   },
   actions: {
-    async login({ commit }, { email, password }) {
+    async login({}, { email, password }) {
       try {
         const resp = await firebase
           .auth()
@@ -35,11 +33,15 @@ export default {
         throw new Error(error.code);
       }
     },
-    async getUserId() {
-      const user = await firebase.auth().currentUser;
-      return user ? user.uid : null;
+    async getUserId({ rootState, commit }) {
+      if (rootState.userId === null) {
+        const user = await firebase.auth().currentUser;
+        commit('setUserId', user.uid);
+        return user ? user.uid : null;
+      }
+      return rootState.userId;
     },
-    async logout({commit}) {
+    async logout({ commit }) {
       commit('clearInfo');
       await firebase.auth().signOut();
     },

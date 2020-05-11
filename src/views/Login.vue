@@ -48,7 +48,7 @@ export default {
 	},
 	mounted ()	{
 		if (this.$route.query.message === 'logout') {
-			this.$message(msgTypes['logout']);
+			this.message(msgTypes['logout']);
 			this.$route.query.message = {};
 		}
 	}

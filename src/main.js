@@ -5,17 +5,19 @@ import 'firebase/auth';
 import 'firebase/database';
 
 import App from '@/App.vue';
+import currencyFilter from '@/filters/currency.filter';
 import Loader from '@/components/Loader';
 import Message from '@/middleware/utils';
 import router from '@/router';
 import store from '@/store';
+import tooltipDirective from '@/directives/tooltip.directives';
 import 'materialize-css';
-import currencyFilter from '@/filters/currency.filter';
 
 Vue.config.productionTip = false;
 
 Vue.use(Vuelidate);
 Vue.use(Message);
+Vue.directive('tooltip', tooltipDirective);
 Vue.filter('currency', currencyFilter);
 Vue.component('Loader', Loader);
 

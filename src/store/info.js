@@ -11,6 +11,12 @@ export default {
     clearInfo(state) {
       state.info = {};
     },
+    updateInfo(state, data) {
+      state.info = {
+        ...state.info,
+        ...data,
+      };
+    },
   },
 
   actions: {
@@ -23,6 +29,20 @@ export default {
           .once('value')
       ).val();
       commit('setInfo', info);
+    },
+    async updateInfo({ commit, dispatch }, data) {
+      try {
+        const userId = await dispatch('getUserId');
+        await firebase
+          .database()
+          .ref(`/users/${userId}/info`)
+          .update(data);
+        commit('updateInfo', data);
+        return true;
+      } catch (error) {
+        commit('setError', error);
+        throw new Error(error);
+      }
     },
   },
   getters: {

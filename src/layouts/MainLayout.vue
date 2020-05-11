@@ -16,7 +16,10 @@
 				</div>
 			</main>
 
-			<div class="fixed-action-btn">
+			<div
+				class="fixed-action-btn"
+				v-tooltip="'Добавить новую запись'"
+			>
 				<router-link
 					class="btn-floating btn-large blue"
 					to="/record"
