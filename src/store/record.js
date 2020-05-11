@@ -38,6 +38,21 @@ export default {
         throw new Error(error);
       }
     },
+    async getRecordById({ commit, dispatch }, id) {
+      try {
+        const userId = await dispatch('getUserId');
+        const record = (
+          await firebase
+            .database()
+            .ref(`/users/${userId}/records/${id}`)
+            .once('value')
+        ).val();
+        return record;
+      } catch (error) {
+        commit('setError', error);
+        throw new Error(error);
+      }
+    },
   },
   getters: {
     records: (s) => s.records,

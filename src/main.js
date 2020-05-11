@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
 import firebase from 'firebase/app';
+import Paginate from 'vuejs-paginate';
 import 'firebase/auth';
 import 'firebase/database';
 
 import App from '@/App.vue';
 import currencyFilter from '@/filters/currency.filter';
+import EmptyCategory from '@/components/EmptyCategory';
 import Loader from '@/components/Loader';
 import Message from '@/middleware/utils';
 import router from '@/router';
@@ -20,6 +22,8 @@ Vue.use(Message);
 Vue.directive('tooltip', tooltipDirective);
 Vue.filter('currency', currencyFilter);
 Vue.component('Loader', Loader);
+Vue.component('EmptyCategory', EmptyCategory)
+Vue.component('Paginate', Paginate);
 
 firebase.initializeApp({
   apiKey: 'AIzaSyDncEQ6CrM06qCYu-FHS9UAKcbPyRTrNEw',

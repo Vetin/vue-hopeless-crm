@@ -7,44 +7,54 @@
 		<div class="history-chart">
 			<canvas></canvas>
 		</div>
+		<Loader v-if="isLoading" />
+		<EmptyCategory v-else-if="records.length === 0" />
 
-		<section>
-			<table>
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Сумма</th>
-						<th>Дата</th>
-						<th>Категория</th>
-						<th>Тип</th>
-						<th>Открыть</th>
-					</tr>
-				</thead>
-
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td>1212</td>
-						<td>12.12.32</td>
-						<td>name</td>
-						<td>
-							<span class="white-text badge red">Расход</span>
-						</td>
-						<td>
-							<button class="btn-small btn">
-								<i class="material-icons">open_in_new</i>
-							</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		<section v-else>
+			<Table :records="items" />
+			<Paginate
+				v-model="page"
+				:page-count="pageCount"
+				:click-handler="pageChangeHandler"
+				:prev-text="'Предыдущая'"
+				:next-text="'Следующая'"
+				:container-class="'pagination'"
+				:page-class="'waves-effect'"
+			/>
 		</section>
 	</div>
 </template>
 
 <script>
-export default {
+import paginationMixin from '@/mixins/pagination.mixins';
+import Table from '@/components/History/Table';
 
+
+export default {
+	data: () => ({
+		records: null,
+		isLoading: true,
+	}),
+	mixins: [paginationMixin],
+	components: {
+		Table
+	},
+	methods: {
+	},
+	async mounted ()	{
+		const categories = await this.$store.dispatch('getCategories');
+		const records = await this.$store.dispatch('getRecords');
+		this.setupPagination(this.records = Object.keys(records).map(key =>		{
+			const category = categories.filter(el => el.id === records[key].categoryId);
+			return {
+				...records[key],
+				id: key,
+				title: category[0].title
+			};
+		}));
+
+		this.isLoading = false;
+	}
 }
 </script>
 

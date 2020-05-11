@@ -4,16 +4,7 @@
 			<h3>Новая запись </h3>
 		</div>
 		<Loader v-if="isLoading" />
-		<p
-			class="center"
-			v-else-if="categories.length === 0"
-		>
-			Вы еще не добавили ни одной категории
-			<router-link
-				tag="span"
-				to="/categories"
-			>Добавить</router-link>
-		</p>
+		<EmptyCategory v-else-if="categories.length === 0" />
 		<form
 			class="form"
 			v-else

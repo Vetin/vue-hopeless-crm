@@ -4,6 +4,7 @@
 			if="isLoading"
 			v-if="isLoading"
 		/>
+		<EmptyCategory v-else-if="categories.length === 0" />
 		<div
 			class="page-title"
 			v-else

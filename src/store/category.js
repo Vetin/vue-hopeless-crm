@@ -55,29 +55,34 @@ export default {
         throw new Error(error);
       }
     },
-    async updateCategory({ commit }, { title, limit, id }) {
+    async updateCategory({ commit, dispatch }, { title, limit, id }) {
       try {
+        const userId = await dispatch('getUserId');
         await firebase
           .database()
-          .ref(`/users/${state.userId}/categories/${id}`)
+          .ref(`/users/${userId}/categories/${id}`)
           .set({ title, limit });
         commit('updateCategory', { title, limit, id });
         return { msg: 'Категория успешно обновлена' };
       } catch (error) {
-        console.log(error);
+        commit('setError', error);
+        throw new Error(error);
       }
     },
-    async getCategoryById({ state }, key) {
-      const userId = state.userId;
-      const category = await firebase
-        .database()
-        .ref(`/users/${userId}/categories/${key}`)
-        .once('value')
-        .then((data) => ({
-          ...data.val(),
-          id: key,
-        }));
-      return category;
+    async getCategoryById({ commit, dispatch }, id) {
+      try {
+        const userId = await dispatch('getUserId');
+        const category = (
+          await firebase
+            .database()
+            .ref(`/users/${userId}/categories/${id}`)
+            .once('value')
+        ).val();
+        return category;
+      } catch (error) {
+        commit('setError', error);
+        throw new Error(error);
+      }
     },
   },
   getters: {
