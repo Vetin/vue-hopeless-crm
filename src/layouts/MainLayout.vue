@@ -35,6 +35,7 @@
 <script>
 import Navbar from "@/components/Navbar";
 import Sidebar from '@/components/Sidebar';
+import msgTypes from '@/utils/messages.types';
 
 export default {
 	components: {
@@ -44,6 +45,20 @@ export default {
 	data: () => ({
 		showSidebar: true,
 	}),
+	computed: {
+		error ()		{
+			return this.$store.getters.error;
+		}
+	},
+	watch: {
+		error (backendError)		{
+			if (backendError === null) {
+				return;
+			}
+			this.$error(msgTypes[backendError] || 'Что-то пошло не так');
+			this.$store.commit('setError', null);
+		}
+	},
 	async mounted ()	{
 		if (!Object.keys(this.$store.getters.info).length) {
 			await this.$store.dispatch('fetchInfo');

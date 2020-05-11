@@ -47,9 +47,9 @@ export default {
 		}
 	},
 	mounted ()	{
-		if (this.$route.query.message === 'logout') {
-			this.message(msgTypes['logout']);
-			this.$route.query.message = {};
+		if (this.$route.query.message) {
+			this.message(msgTypes[this.$route.query.message]);
+			// this.$route.query;
 		}
 	}
 };

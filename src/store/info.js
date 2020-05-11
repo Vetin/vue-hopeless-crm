@@ -29,6 +29,7 @@ export default {
           .once('value')
       ).val();
       commit('setInfo', info);
+      return info;
     },
     async updateInfo({ commit, dispatch }, data) {
       try {
