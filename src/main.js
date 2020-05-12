@@ -28,7 +28,7 @@ Vue.component('EmptyCategory', EmptyCategory);
 Vue.component('Paginate', Paginate);
 
 firebase.initializeApp({
-  apiKey: 'AIzaSyDncEQ6CrM06qCYu-FHS9UAKcbPyRTrNEw',
+  apiKey: process.env.VUE_APP_FIREBASE,
   authDomain: 'vue-crm-abe77.firebaseapp.com',
   databaseURL: 'https://vue-crm-abe77.firebaseio.com',
   projectId: 'vue-crm-abe77',
