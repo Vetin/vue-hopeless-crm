@@ -40,16 +40,17 @@ export default {
 		currency: null,
 	}),
 	methods: {
-		async refresh ()		{
+		async refresh()		{
 			await this.getCurrency();
 		},
-		async getCurrency ()		{
+		async getCurrency()		{
 			this.isLoading = true;
 			this.currency = await this.$store.dispatch('fetchCurrency');
+			this.currency.rates.EUR = 1;
 			this.isLoading = false;
 		}
 	},
-	async mounted ()	{
+	async mounted()	{
 		await this.getCurrency();
 	},
 }
