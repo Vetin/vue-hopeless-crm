@@ -3,6 +3,7 @@ node_modules
 /dist
 
 # local env files
+.env
 .env.local
 .env.*.local
 
@@ -22,3 +23,7 @@ yarn-error.log*
 
 #templates
 /src/templates
+
+#firebase
+.firebasesrc
+firebase.json

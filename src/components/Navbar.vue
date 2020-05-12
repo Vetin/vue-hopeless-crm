@@ -33,7 +33,8 @@
 								active-class="active"
 								class="black-text"
 							>
-								<i class="material-icons">account_circle</i>Профиль
+								<i class="material-icons">account_circle</i>
+								{{ 'ProfileTitle' | localize}}
 							</router-link>
 						</li>
 						<li
@@ -46,7 +47,8 @@
 								class="black-text"
 								@click.prevent="logoutHandler"
 							>
-								<i class="material-icons">assignment_return</i>Выйти
+								<i class="material-icons">assignment_return</i>
+								{{ 'Logout' | localize}}
 							</a>
 						</li>
 					</ul>
@@ -59,7 +61,7 @@
 <script>
 export default {
 	methods: {
-		async logoutHandler ()		{
+		async logoutHandler()		{
 			await this.$store.dispatch('logout');
 			this.$router.push('/login?message=logout');
 		}
@@ -70,17 +72,17 @@ export default {
 		dropdown: null,
 	}),
 	computed: {
-		name ()		{
+		name()		{
 			return this.$store.getters.info.name;
 		}
 	},
-	mounted ()	{
+	mounted()	{
 		this.interval = setInterval(() => { this.date = new Date().toLocaleString(); }, 1000);
 		this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
 			constrainWidth: false
 		});
 	},
-	beforeDestroy ()	{
+	beforeDestroy()	{
 		clearInterval(this.interval);
 		if (this.dropdown && this.dropdown.destroy) {
 			this.dropdown.destroy();

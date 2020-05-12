@@ -27,6 +27,7 @@ export default {
           .ref(`/users/${userId}/info`)
           .set({
             bill: 1000,
+            locale: 'ru-RU',
             name,
           });
       } catch (error) {

@@ -13,7 +13,7 @@
 				href="#"
 				class="waves-effect waves-orange pointer"
 			>
-				Счет</a>
+				{{'Bill' | localize}}</a>
 		</router-link>
 		<router-link
 			to="/history"
@@ -23,7 +23,7 @@
 			<a
 				href="#"
 				class="waves-effect waves-orange pointer"
-			>История</a>
+			>{{"History" | localize}}</a>
 		</router-link>
 		<router-link
 			to="/planning"
@@ -33,7 +33,7 @@
 			<a
 				href="#"
 				class="waves-effect waves-orange pointer"
-			>Планирование</a>
+			>{{"Planning" | localize}}</a>
 		</router-link>
 		<router-link
 			to="/record"
@@ -43,7 +43,7 @@
 			<a
 				href="#"
 				class="waves-effect waves-orange pointer"
-			>Новая запись</a>
+			>{{"NewRecord" | localize}}</a>
 		</router-link>
 		<router-link
 			to="/category"
@@ -53,7 +53,7 @@
 			<a
 				href="#"
 				class="waves-effect waves-orange pointer"
-			>Категории</a>
+			>{{"Categories" | localize}}</a>
 		</router-link>
 	</ul>
 </template>

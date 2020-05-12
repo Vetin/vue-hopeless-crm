@@ -39,7 +39,7 @@ export default {
           .ref(`/users/${userId}/info`)
           .update(data);
         commit('updateInfo', data);
-        return true;
+        return data;
       } catch (error) {
         commit('setError', error);
         throw new Error(error);

@@ -7,6 +7,7 @@ import 'firebase/database';
 
 import App from '@/App.vue';
 import currencyFilter from '@/filters/currency.filter';
+import localizeFilter from '@/filters/localize.filter';
 import EmptyCategory from '@/components/EmptyCategory';
 import Loader from '@/components/Loader';
 import Message from '@/middleware/utils';
@@ -21,8 +22,9 @@ Vue.use(Vuelidate);
 Vue.use(Message);
 Vue.directive('tooltip', tooltipDirective);
 Vue.filter('currency', currencyFilter);
+Vue.filter('localize', localizeFilter);
 Vue.component('Loader', Loader);
-Vue.component('EmptyCategory', EmptyCategory)
+Vue.component('EmptyCategory', EmptyCategory);
 Vue.component('Paginate', Paginate);
 
 firebase.initializeApp({

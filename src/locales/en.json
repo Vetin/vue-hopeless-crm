@@ -1,0 +1,13 @@
+{
+  "ProfileTitle": "Profile",
+  "Name": "Name",
+  "NameBlank": "Name can not be blank",
+  "NameLength": "Name should incllude at least three characters",
+  "Update": "Update",
+  "Logout": "Logout",
+  "Bill": "Bill",
+  "History": "History",
+  "Planning": "Planning",
+  "NewRecord": "New Record",
+  "Categories": "Categories"
+}

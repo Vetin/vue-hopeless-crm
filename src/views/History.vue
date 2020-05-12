@@ -71,15 +71,14 @@ export default {
 				labels: uniqRecords.map(record => { console.log(record); return record.title; }),
 				datasets: [{
 					label: 'Расходы по категориям',
-					data: uniqRecords.map(uniq =>					{
-						return records.reduce((acc, record) =>						{
-							if (record.categoryId === uniq.categoryId && record.type === 'outcome') {
+					data: uniqRecords.map(uniq => records.reduce((acc, record) =>					{
+						if (record.categoryId === uniq.categoryId && record.type === 'outcome') {
 
-								acc += +record.price;
-							}
-							return acc;
-						}, 0);
-					}),
+							acc += +record.price;
+						}
+						return acc;
+					}, 0)
+					),
 					backgroundColor: [
 						'rgba(255, 99, 132, 0.2)',
 						'rgba(54, 162, 235, 0.2)',
