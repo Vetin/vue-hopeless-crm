@@ -28,7 +28,7 @@ export default {
 		},
 	}),
 	methods: {
-		async sendFormHandler ()		{
+		async sendFormHandler()		{
 			this.isSubmited = true;
 			const data = {
 				email: this.form.email,
@@ -39,7 +39,7 @@ export default {
 				await this.$store.dispatch('register', data);
 				this.$router.push("/");
 			} catch (error) {
-				this.$store.commit('setError', error.message);
+				this.$store.dispatch('setError', error.message);
 			}
 			this.isSubmited = false;
 		}

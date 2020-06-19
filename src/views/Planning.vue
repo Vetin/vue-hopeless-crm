@@ -46,45 +46,52 @@ export default {
 		categories: null,
 	}),
 	computed: {
-		comparedRecords ()		{
+		comparedRecords()		{
 			if (!this.info || !this.records) {
 				return false;
 			}
 
 		}
 	},
-	async mounted ()	{
+	methods: {
+		async transformCategories()		{
+			const records = Object.values(await this.$store.dispatch('getRecords'));
+			const categories = this.$store.getters.categories;
+
+			return categories.map(category =>			{
+				const spend = records
+					.filter(r => r.categoryId === category.id)
+					.filter(r => r.type === 'outcome')
+					.reduce((acc, record) => acc += +record.price, 0);
+				const percent = 100 * spend / category.limit;
+				const progressPercent = percent > 100 ? 100 : percent;
+				const progressColor = percent < 60
+					? 'green'
+					: percent < 100
+						? 'yellow'
+						: 'red';
+				const tooltipValue = category.limit - spend;
+				const tooltip = `${tooltipValue < 0 ? 'Превышение на' : 'Осталось'}
+			${currencyFilter(Math.abs(tooltipValue))}`;
+				return {
+					...category,
+					spend,
+					progressColor,
+					progressPercent,
+					tooltip
+				};
+			});
+		}
+	},
+	async mounted()	{
 		await this.$store.dispatch("fetchInfo");
 		await this.$store.dispatch("getCategories");
-		const records = Object.values(await this.$store.dispatch('getRecords'));
 		this.info = { ...this.$store.getters.info };
-		const categories = this.$store.getters.categories;
-		this.categories = categories.map(category =>		{
-			const spend = records
-				.filter(r => r.categoryId === category.id)
-				.filter(r => r.type === 'outcome')
-				.reduce((acc, record) => acc += +record.price, 0);
-			const percent = 100 * spend / category.limit;
-			const progressPercent = percent > 100 ? 100 : percent;
-			const progressColor = percent < 60
-				? 'green'
-				: percent < 100
-					? 'yellow'
-					: 'red';
-			const tooltipValue = category.limit - spend;
-			const tooltip = `${tooltipValue < 0 ? 'Превышение на' : 'Осталось'}
-			${currencyFilter(Math.abs(tooltipValue))}`;
-			return {
-				...category,
-				spend,
-				progressColor,
-				progressPercent,
-				tooltip
-			};
-		});
+		this.categories = await this.transformCategories();
+		console.log(this.categories);
 		this.isLoading = false;
 	},
-	created ()	{
+	created()	{
 		this.isLoading = true;
 	}
 }

@@ -41,7 +41,7 @@ export default {
         commit('updateInfo', data);
         return data;
       } catch (error) {
-        commit('setError', error);
+        dispatch('setError', error);
         throw new Error(error);
       }
     },

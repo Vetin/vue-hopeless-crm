@@ -3,7 +3,7 @@
 		Вы еще не добавили ни одной категории
 		<router-link
 			tag="span"
-			to="/categories"
+			to="/category"
 		>Добавить</router-link>
 	</p>
 </template>

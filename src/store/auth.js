@@ -35,7 +35,7 @@ export default {
       }
     },
     async getUserId({ rootState, commit }) {
-      if (rootState.userId === null) {
+      if (rootState?.userId === null) {
         const user = await firebase.auth().currentUser;
         commit('setUserId', user.uid);
         return user ? user.uid : null;

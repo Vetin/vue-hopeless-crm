@@ -9,17 +9,17 @@ import msgTypes from '@/utils/messages.types';
 
 export default {
 	computed: {
-		error ()		{
+		error()		{
 			return this.$store.getters.error;
 		}
 	},
 	watch: {
-		error (backendError)		{
+		error(backendError)		{
 			if (backendError === null) {
 				return;
 			}
 			this.$error(msgTypes[backendError] || 'Что-то пошло не так');
-			this.$store.commit('setError', null);
+			this.$store.dispatch('setError', null);
 		}
 	}
 }

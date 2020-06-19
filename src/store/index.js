@@ -25,8 +25,11 @@ export default new Vuex.Store({
       const response = await fetch(
         `https://api.exchangeratesapi.io/latest?symbols=USD,RUB`
       );
-      return await response.json();
+      return response.json();
     },
+    async setError({commit}, error) {
+      commit(erorr);
+    }
   },
   getters: {
     error: (state) => state.error,

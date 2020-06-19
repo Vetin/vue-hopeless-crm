@@ -33,11 +33,11 @@ export default {
 		categories: null,
 	}),
 	methods: {
-		updateCategory ()		{
+		updateCategory()		{
 			this.categories = this.$store.getters.categories;
 		}
 	},
-	async mounted ()	{
+	async mounted()	{
 		this.categories = await this.$store.dispatch('getCategories');
 	}
 }

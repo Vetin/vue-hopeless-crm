@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 
 export default {
   state: () => ({
-    records: null,
+    records: [],
   }),
   mutations: {
     initRecords(state, records) {
@@ -18,27 +18,28 @@ export default {
           .ref(`/users/${userId}/records`)
           .push(data);
       } catch (error) {
-        commit('setError', error);
+        dispatch('setError', error);
         throw new Error(error);
       }
     },
     async getRecords({ commit, dispatch }) {
       try {
         const userId = await dispatch('getUserId');
-        const records = (
+        const response = (
           await firebase
             .database()
             .ref(`/users/${userId}/records`)
             .once('value')
         ).val();
+        const records = response ? response : [];
         commit('initRecords', records);
         return records;
       } catch (error) {
-        setError('error', error);
+        dispatch('setError', error);
         throw new Error(error);
       }
     },
-    async getRecordById({ commit, dispatch }, id) {
+    async getRecordById({ dispatch }, id) {
       try {
         const userId = await dispatch('getUserId');
         const record = (
@@ -49,7 +50,7 @@ export default {
         ).val();
         return record;
       } catch (error) {
-        commit('setError', error);
+        dispatch('setError', error);
         throw new Error(error);
       }
     },

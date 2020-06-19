@@ -46,20 +46,20 @@ export default {
 		showSidebar: true,
 	}),
 	computed: {
-		error ()		{
+		error()		{
 			return this.$store.getters.error;
 		}
 	},
 	watch: {
-		error (backendError)		{
+		error(backendError)		{
 			if (backendError === null) {
 				return;
 			}
 			this.$error(msgTypes[backendError] || 'Что-то пошло не так');
-			this.$store.commit('setError', null);
+			this.$store.dispatch('setError', null);
 		}
 	},
-	async mounted ()	{
+	async mounted()	{
 		if (!Object.keys(this.$store.getters.info).length) {
 			await this.$store.dispatch('fetchInfo');
 		}

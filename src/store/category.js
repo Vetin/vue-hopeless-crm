@@ -32,7 +32,7 @@ export default {
         commit('addCategory', category);
         return category;
       } catch (error) {
-        commit('setError', error);
+        dispatch('setError', error);
         throw new Error(error);
       }
     },
@@ -45,10 +45,13 @@ export default {
             .ref(`/users/${userId}/categories/`)
             .once('value')
         ).val();
-        const categories = Object.keys(response).map((key) => ({
-          ...response[key],
-          id: key,
-        }));
+
+        const categories = response
+          ? Object.keys(response).map((key) => ({
+              ...response[key],
+              id: key,
+            }))
+          : [];
         commit('initCategories', categories);
         return categories;
       } catch (error) {
@@ -65,7 +68,7 @@ export default {
         commit('updateCategory', { title, limit, id });
         return { msg: 'Категория успешно обновлена' };
       } catch (error) {
-        commit('setError', error);
+        dispatch('setError', error);
         throw new Error(error);
       }
     },
@@ -80,7 +83,7 @@ export default {
         ).val();
         return category;
       } catch (error) {
-        commit('setError', error);
+        dispatch('setError', error);
         throw new Error(error);
       }
     },
