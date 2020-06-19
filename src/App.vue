@@ -11,7 +11,7 @@ import MainLayout from './layouts/MainLayout';
 
 export default {
 	computed: {
-		layout ()		{
+		layout()		{
 			return this.$route.meta.layout || 'AuthLayout';
 		}
 	},
@@ -26,8 +26,9 @@ export default {
 @import "assets/index.css";
 
 #toast-container {
-	left: 43% !important;
+	left: 40% !important;
 	bottom: 0 !important;
 	top: 5% !important;
+	width: fit-content;
 }
 </style>
